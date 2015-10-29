@@ -74,4 +74,4 @@ tree-linkage是一个属性，取值类型为字符串。当它的值为"on",nod
 leaf-only是一个属性，取值类型为字符串。当它的值为"on"，只有tree的末梢节点有checkbox。
 
 ##指令HTML结构
-整个tree最终被包含在一个class="ng-checkbox-tree"的div中。每个node都是一个<li></li>，可以据此自定义它的样式。
+整个tree最终被包含在一个class="ng-checkbox-tree"的div中。每个node都是一个&lt;li&gt;&lt;/li&gt;，可以据此自定义它的样式。
