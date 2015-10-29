@@ -22,8 +22,11 @@
 
                 //监控treeDtata
                 scope.$watch('treeData', function() {
-                    removeBranch(indexTree);
-                    createBranch(scope.treeData, indexTree);
+                    removeBranches(indexTree);
+                    createBranches(scope.treeData, indexTree);
+                    if (attrs.leafOnly === "on") {
+                        leafOnly();
+                    }
                     //
                     indexTree.find('input').bind('change', function() {
                         select(angular.element(this));
@@ -31,17 +34,27 @@
                 }, true);
 
                 //递归地创建分支
-                function createBranch(data, treeNode) {
+                function createBranches(data, treeNode) {
                     if (data.length > 0) {
                         var treeBase = treeNode.append('<ul></ul>').children('ul');
                         for (var i = 0; i < data.length; i++) {
                             var newTreeNode = treeBase.append('<li><input type="checkbox" value=' + data[i].id + '/>' + data[i].title + '</li>').children('li:eq(' + i + ')');
-                            createBranch(data[i].nodes, newTreeNode);
+                            createBranches(data[i].nodes, newTreeNode);
                         }
                     }
                 }
+                function leafOnly () {
+                    console.log("ooooooooooooooooo");
+                    indexTree.find('li').each(function () {
+                        var self = angular.element(this);
+                        var isLeaf = (self.children('ul').length === 0);
+                        if (!isLeaf) {
+                            self.children('input').remove();
+                        }
+                    }) ;  
+                }
                 //移除分支
-                function removeBranch(treeNode) {
+                function removeBranches(treeNode) {
                     treeNode.empty();
                 }
 
